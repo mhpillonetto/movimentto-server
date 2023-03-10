@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken');
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
 
-    if (!user || !pwd) return res.status(400).json({ "message": 'Username and password are required' });
+    if (!user || !pwd) return res.status(400).json({ "message": 'Required Fields missing' });
 
     const foundUser = await User.findOne({ username: user }).exec();
-    if (!foundUser) return response.sendStatus(401); //unauthorized
-    //evaluate password
+    if (!foundUser) return response.sendStatus(401);
 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
@@ -31,7 +30,7 @@ const handleLogin = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
-        //Saving refreshToken with current user
+
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();        
 

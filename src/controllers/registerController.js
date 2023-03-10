@@ -2,8 +2,9 @@ const User = require('../model/User');
 const bcrypt = require('bcrypt');
 
 const handleNewUser = async (req, res) => {
-    const { user, pwd } = req.body;
-    if (!user || !pwd) return res.status(400).json({ "message": 'Username and password are required'});
+    const { user, pwd, email, userType } = req.body;
+    if (!user || !pwd || !email || !userType) return res.status(400).json({ "message": 'Required Fields missing'});
+    
     // check for duplicate usernames in the db
     const duplicate = await User.findOne({ username: user }).exec();
     if (duplicate) return res.sendStatus(409);
@@ -15,7 +16,9 @@ const handleNewUser = async (req, res) => {
         //create and store the new user
         const result = await User.create({ 
                 "username": user,
-                "password": hashedPwd
+                "password": hashedPwd,
+                "email": email,
+                "userType": userType
         });
         res.status(201).json({ 'success': `New user ${user} created`})
     } catch(err) {
