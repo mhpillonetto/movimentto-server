@@ -9,7 +9,7 @@ const handleLogin = async (req, res) => {
     if (!user || !pwd) return res.status(400).json({ "message": 'Required Fields missing' });
 
     const foundUser = await User.findOne({ username: user }).exec();
-    if (!foundUser) return response.sendStatus(401);
+    if (!foundUser) return res.sendStatus(401);
 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
