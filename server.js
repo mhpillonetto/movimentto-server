@@ -6,6 +6,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3500;
 const verifyJWT = require('./src/middlewares/verifyJWT');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const mongoose = require('mongoose');
 const connectDB = require('./src/config/dbConn')

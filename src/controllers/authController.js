@@ -10,7 +10,6 @@ const handleLogin = async (req, res) => {
 
     const foundUser = await User.findOne({ username: user }).exec();
     if (!foundUser) {
-        console.log('user not found');
         return response.sendStatus(401);
     }
 
