@@ -31,8 +31,7 @@ app.use('/refresh', require('./src/routes/api/refresh'));
 app.use('/logout', require('./src/routes/api/logout'));
 
 //Everything under here will use jwt
-app.use(verifyJWT);
-// app.use('/pokemons', require('./src/routes/api/pokemons'));
+// app.use(verifyJWT);
 
 mongoose.connection.once('open', ()=> {
     console.log('Connected to MongoDB');
