@@ -9,7 +9,10 @@ const handleLogin = async (req, res) => {
     if (!user || !pwd) return res.status(400).json({ "message": 'Required Fields missing' });
 
     const foundUser = await User.findOne({ username: user }).exec();
-    if (!foundUser) return response.sendStatus(401);
+    if (!foundUser) {
+        console.log('user not found');
+        return response.sendStatus(401);
+    }
 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
@@ -37,6 +40,7 @@ const handleLogin = async (req, res) => {
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 14 * 60 * 60 * 1000 });
         res.json({ accessToken })
     } else {
+        console.log('auth failed');
         res.sendStatus(401);
     }
 }
