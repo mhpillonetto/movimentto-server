@@ -24,7 +24,6 @@ app.use((req,res,next) => {
     next();
 })
 
-app.use('/', require('./src/routes'));
 app.use('/register', require('./src/routes/api/register'));
 app.use('/auth', require('./src/routes/api/auth'));
 app.use('/refresh', require('./src/routes/api/refresh'));
@@ -32,7 +31,7 @@ app.use('/logout', require('./src/routes/api/logout'));
 app.use('/user',require('./src/routes/api/user'));
 
 //Everything under here will use jwt
-// app.use(verifyJWT);
+app.use(verifyJWT);
 
 mongoose.connection.once('open', ()=> {
     console.log('Connected to MongoDB');

@@ -25,6 +25,21 @@ const userSchema = new Schema({
     email: {
         type: String
     },
+    cnpj: {
+        type: String
+    },
+    contactName: {
+        type: String
+    },
+    contactNumber: {
+        type: String
+    },
+    website: {
+        type: String
+    },
+    cep: {
+        type: String
+    },
     refreshToken: String
 });
 
