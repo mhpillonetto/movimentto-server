@@ -32,6 +32,8 @@ app.use('/logout', require('./src/routes/api/logout'));
 //Everything under here will use jwt
 app.use(verifyJWT);
 app.use('/user',require('./src/routes/api/user'));
+app.use('/shipment',require('./src/routes/api/shipment'));
+
 
 mongoose.connection.once('open', ()=> {
     console.log('Connected to MongoDB');

@@ -9,9 +9,7 @@ const findUserByUsername = async (req, res) => {
 
 const editUser = async (req, res) => {
     const editedProfile = req.body
-    console.log('====================================');
     console.log(editedProfile);
-    console.log('====================================');
     
     try {
         const response = await User.findOneAndUpdate(
