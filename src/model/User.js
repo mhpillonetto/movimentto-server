@@ -39,6 +39,18 @@ const userSchema = new Schema({
     cep: {
         type: String
     },
+    cpf: {
+        type: String
+    },
+    phoneNumber: {
+        type: String
+    },
+    licensePlate: {
+        type: String
+    },
+    vehicleType: {
+        type: String
+    },
     refreshToken: String
 });
 
