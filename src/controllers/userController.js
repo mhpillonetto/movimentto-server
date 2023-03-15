@@ -8,7 +8,8 @@ const findUserByUsername = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-    const editedProfile = req.body
+
+    const editedProfile = req.body.user
 
     try {
         const response = await User.findOneAndUpdate(
