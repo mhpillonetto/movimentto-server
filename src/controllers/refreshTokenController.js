@@ -2,11 +2,11 @@ const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 
 const handleRefreshToken = async (req, res) => {
+    console.log(req.headers.refreshtoken);
     const refreshToken = req.headers.refreshtoken;
 
     const foundUser = await User.findOne({ refreshToken }).exec();
-    console.log(foundUser);
-    if (!foundUser) return res.sendStatus(403); //unauthorized
+    if (!foundUser) return res.sendStatus(403);
 
     jwt.verify(
         refreshToken,
@@ -18,12 +18,12 @@ const handleRefreshToken = async (req, res) => {
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
-                        "username": foundUser.password.username,
+                        "username": foundUser.username,
                         "roles": roles
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '15min' }
+                { expiresIn: '1min' }
             );
             res.json({ accessToken })
         }

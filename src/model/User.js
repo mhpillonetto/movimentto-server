@@ -30,7 +30,7 @@ const userSchema = new Schema({
     contactName: {
         type: String
     },
-    contactNumber: {
+    contactPhoneNumber: {
         type: String
     },
     website: {
