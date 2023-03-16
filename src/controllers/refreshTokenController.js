@@ -2,12 +2,11 @@ const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 
 const handleRefreshToken = async (req, res) => {
-    const cookies = req.cookies;
-    if (!cookies || !cookies.jwt) return res.sendStatus(401);
-    const refreshToken = cookies.jwt;
+    const refreshToken = req.headers.refreshtoken;
 
     const foundUser = await User.findOne({ refreshToken }).exec();
-    if (!foundUser) return response.sendStatus(403); //unauthorized
+    console.log(foundUser);
+    if (!foundUser) return res.sendStatus(403); //unauthorized
 
     jwt.verify(
         refreshToken,
@@ -15,7 +14,7 @@ const handleRefreshToken = async (req, res) => {
         (err, decoded) => {
             if (err) return res.sendStatus(403);
             const roles = Object.values(foundUser.roles);
-            
+
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
