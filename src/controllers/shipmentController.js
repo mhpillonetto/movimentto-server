@@ -11,4 +11,14 @@ const getAllShipments = async (req,res) => {
     }
 }
 
-module.exports = { getAllShipments }
+const createShipment = async (req,res) => {
+    try {
+        await Shipment.create(req.body)
+        res.sendStatus(201)
+    } catch (error) {
+        console.log(error)
+        throw new Error
+    }
+}
+
+module.exports = { getAllShipments, createShipment }
