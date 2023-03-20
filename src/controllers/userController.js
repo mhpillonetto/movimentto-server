@@ -21,8 +21,19 @@ const editUser = async (req, res) => {
     } catch (error) {
         throw new Error
     }
-
-
 }
 
-module.exports = { findUserByUsername, editUser }
+const getUserInfo = async (req, res) => {
+    const foundUser = await User.findOne({ username: req.headers.username });
+
+    if (!foundUser) return res.status(204).json({ "message": "No User found :(" });
+    
+    const contactInfo = {
+        name: foundUser.contactName,
+        phoneNumber: foundUser.contactPhoneNumber
+    }
+
+    res.json(contactInfo);
+};
+
+module.exports = { findUserByUsername, editUser, getUserInfo }
