@@ -34,6 +34,14 @@ const shipmentSchema = new Schema({
         type: Number,
         required: true
     },
+    product: {
+        type: String,
+        required: true
+    },
+    productType: {
+        type: String,
+        required: true
+    },
     requiredVehicle: {
         type: String,
         required: true
