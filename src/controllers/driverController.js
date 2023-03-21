@@ -13,8 +13,8 @@ const getAllDrivers = async (req,res) => {
 
 
 //getByName
-const getDriverByUsername = async (username) => {
-    const foundUser = await User.findOne({ username: req.headers.username, userType: Constants.userType.motorista });
+const getDriverByUsername = async (req,res) => {
+    const foundUser = await User.findOne({ username: req.params.username, userType: Constants.userType.motorista });
 
     if (!foundUser) return res.status(204).json({ "message": "Motorista não encontrado" });
     res.json(foundUser);
