@@ -28,10 +28,10 @@ app.use('/register', require('./src/routes/api/register'));
 app.use('/auth', require('./src/routes/api/auth'));
 app.use('/refresh', require('./src/routes/api/refresh'));
 app.use('/logout', require('./src/routes/api/logout'));
-
 //Everything under here will use jwt
 app.use(verifyJWT);
 app.use('/user',require('./src/routes/api/user'));
+app.use('/driver',require('./src/routes/api/driver'));
 app.use('/shipment',require('./src/routes/api/shipment'));
 
 
