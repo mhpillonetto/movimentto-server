@@ -19,25 +19,4 @@ const getDriverByUsername = async (req,res) => {
 
 }
 
-const checkIn = async (req,res) => {
-    try {
-        const {username, lat, long} = req.body
-        const createdAt = new Date()
-        const response = await CheckIn.create({
-            "username": username,
-            "lat": lat,
-            "long": long,
-            "createdAt": createdAt
-        })
-        
-        return res.status(201).json({"message":"checkin realizado com sucesso"})
-    } catch (error) {
-        throw new Error
-    } 
-}
-
-const getCheckedInDrivers = () => {
-
-}
-
-module.exports = { getAllDrivers, getDriverByUsername, checkIn }
+module.exports = { getAllDrivers, getDriverByUsername }

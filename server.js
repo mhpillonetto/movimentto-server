@@ -33,7 +33,7 @@ app.use(verifyJWT);
 app.use('/user',require('./src/routes/api/user'));
 app.use('/driver',require('./src/routes/api/driver'));
 app.use('/shipment',require('./src/routes/api/shipment'));
-
+app.use('/checkin', require('./src/routes/api/checkin'));
 
 mongoose.connection.once('open', ()=> {
     console.log('Connected to MongoDB');
