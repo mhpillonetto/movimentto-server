@@ -51,6 +51,15 @@ const userSchema = new Schema({
     vehicleType: {
         type: String
     },
+    lat: {
+        type: Number
+    },
+    long: {
+        type: Number
+    },
+    lastCheckIn: {
+        type: Date
+    },
     refreshToken: String
 });
 
