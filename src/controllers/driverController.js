@@ -8,7 +8,6 @@ const getAllDrivers = async (req,res) => {
     if (!drivers) return res.status(204).json({ "message": "Motoristas não encontrados" });
     
     res.json(drivers);
-
 }
 
 const getDriverByUsername = async (req,res) => {

@@ -57,6 +57,12 @@ const userSchema = new Schema({
     long: {
         type: Number
     },
+    city: {
+        type: String
+    },
+    state: {
+        type: String
+    },
     lastCheckIn: {
         type: Date
     },

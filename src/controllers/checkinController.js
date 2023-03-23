@@ -5,7 +5,7 @@ const User = require("../model/User");
 
 const checkIn = async (req,res) => {
     try {
-        const {username, lat, long} = req.body
+        const {username, lat, long, city, state} = req.body
         const now = new Date()
         
         await User.findOneAndUpdate(
@@ -13,7 +13,9 @@ const checkIn = async (req,res) => {
             {
                 lastCheckIn: now,
                 lat,
-                long
+                long,
+                city,
+                state
             }
         )
 
