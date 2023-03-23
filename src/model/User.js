@@ -48,6 +48,12 @@ const userSchema = new Schema({
     licensePlate: {
         type: String
     },
+    firstComplementLicensePlate: {
+        type: String
+    },
+    secondComplementLicensePlate: {
+        type: String
+    },
     vehicleType: {
         type: String
     },
