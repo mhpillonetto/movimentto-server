@@ -22,9 +22,12 @@ const shipmentSchema = new Schema({
         type: Date,
         required: true
     },  
-    owner: {
+    ownerUsername: {
         type: String,
         required: true
+    },
+    ownerDisplayname: {
+        type: String
     },
     createdAt: {
         type: Date,

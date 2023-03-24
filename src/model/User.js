@@ -6,7 +6,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    dispĺayName:{
+    displayName:{
         type: String,
     },
     roles: {
@@ -46,8 +46,7 @@ const userSchema = new Schema({
         type: String
     },
     phoneNumber: {
-        type: String,
-        required: true
+        type: String
     },
     licensePlate: {
         type: String
