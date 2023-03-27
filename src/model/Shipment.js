@@ -26,7 +26,7 @@ const shipmentSchema = new Schema({
         type: String,
         required: true
     },
-    ownerDisplayname: {
+    ownerDisplayName: {
         type: String
     },
     createdAt: {

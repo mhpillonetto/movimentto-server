@@ -1,7 +1,6 @@
 const Shipment = require('../model/Shipment')
 
 const getAllShipments = async (req,res) => {
-
     try {
         const allShipmentsList = await Shipment.find()
         res.status(200).json(allShipmentsList)
@@ -13,6 +12,9 @@ const getAllShipments = async (req,res) => {
 
 const createShipment = async (req,res) => {
     try {
+        console.log('====================================');
+        console.log(req);
+        console.log('====================================');
         await Shipment.create(req.body)
         res.sendStatus(201)
     } catch (error) {
