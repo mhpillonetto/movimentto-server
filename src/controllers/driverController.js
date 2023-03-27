@@ -1,5 +1,4 @@
 const { Constants } = require("../data/constants");
-const CheckIn = require("../model/CheckIn");
 const User = require("../model/User");
 
 const getAllDrivers = async (req,res) => {

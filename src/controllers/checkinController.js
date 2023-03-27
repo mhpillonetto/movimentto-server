@@ -1,29 +1,29 @@
 const TimeAgo = require("javascript-time-ago");
 const { Constants } = require("../data/constants");
-const CheckIn = require("../model/CheckIn");
 const User = require("../model/User");
 
-const checkIn = async (req,res) => {
+const checkIn = async (req, res) => {
     try {
-        const {username, lat, long, city, state} = req.body
+        const { username, lat, long, city, state, status } = req.body
         const now = new Date()
-        
+
         await User.findOneAndUpdate(
-            {username},  
+            { username },
             {
                 lastCheckIn: now,
                 lat,
                 long,
                 city,
-                state
+                state,
+                status
             }
         )
 
-        return res.status(201).json({"message":"checkin realizado com sucesso"})
+        return res.status(201).json({ "message": "checkin realizado com sucesso" })
     } catch (error) {
         console.log(error)
         throw new Error
-    } 
+    }
 }
 
 const getCheckedInDrivers = async (req, res) => {

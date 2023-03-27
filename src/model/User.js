@@ -75,6 +75,8 @@ const userSchema = new Schema({
     lastCheckIn: {
         type: Date
     },
+    address: String,
+    status: String,
     refreshToken: String
 });
 
