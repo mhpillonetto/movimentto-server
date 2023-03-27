@@ -6,9 +6,6 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    displayName:{
-        type: String,
-    },
     roles: {
         User: {
             type: Number,
@@ -21,61 +18,27 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    userType: {
-        type: String,
-    },
-    email: {
-        type: String
-    },
-    cnpj: {
-        type: String
-    },
-    contactName: {
-        type: String
-    },
-    contactPhoneNumber: {
-        type: String
-    },
-    website: {
-        type: String
-    },
-    cep: {
-        type: String
-    },
-    cpf: {
-        type: String
-    },
-    phoneNumber: {
-        type: String
-    },
-    licensePlate: {
-        type: String
-    },
-    firstComplementLicensePlate: {
-        type: String
-    },
-    secondComplementLicensePlate: {
-        type: String
-    },
-    vehicleType: {
-        type: String
-    },
-    lat: {
-        type: Number
-    },
-    long: {
-        type: Number
-    },
-    city: {
-        type: String
-    },
-    state: {
-        type: String
-    },
-    lastCheckIn: {
-        type: Date
-    },
+    displayName: String,
+    userType: String,
+    email: String,
+    cnpj: String,
+    contactName: String,
+    contactPhoneNumber: String,
+    website: String,
+    cep: String,
+    cpf: String,
+    phoneNumber: String,
+    licensePlate: String,
+    firstComplementLicensePlate: String,
+    secondComplementLicensePlate: String,
+    vehicleType: String,
+    lat: Number,
+    long: Number,
+    city: String,
+    state: String,
+    lastCheckIn: Date,
     address: String,
+    antt: String,
     status: String,
     refreshToken: String
 });
