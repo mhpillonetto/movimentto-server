@@ -26,17 +26,12 @@ const shipmentSchema = new Schema({
         type: String,
         required: true
     },
-    ownerDisplayName: {
-        type: String
-    },
+    ownerDisplayName: String,
     createdAt: {
         type: Date,
         required: false
     },
-    price: {
-        type: Number,
-        required: true
-    },
+    price: Number,
     product: {
         type: String,
         required: true
@@ -49,10 +44,11 @@ const shipmentSchema = new Schema({
         type: String,
         required: true
     },
-    observations: {
-        type: String,
-        required: false
-    },
+    complement: String,
+    weight: String,
+    tracking: String,
+    flooringType: String,
+    necessaryItems: String
 })
 
 module.exports = mongoose.model('Shipment', shipmentSchema)
