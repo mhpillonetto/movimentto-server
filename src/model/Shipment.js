@@ -6,22 +6,30 @@ const shipmentSchema = new Schema({
         type: String,
         required: true
     },
-    deliveryLocation: {
+    deliveryCity: {
+        type: String,
+        required: true
+    },
+    deliveryState: {
         type: String,
         required: true
     },
     deliveryDate: {
         type: Date,
         required: true
-    },  
-    retrievalLocation: {
+    },
+    retrievalCity: {
+        type: String,
+        required: true
+    },
+    retrievalState: {
         type: String,
         required: true
     },
     retrievalDate: {
         type: Date,
         required: true
-    },  
+    },
     ownerUsername: {
         type: String,
         required: true

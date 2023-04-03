@@ -3,7 +3,7 @@ const Shipment = require('../model/Shipment')
 const getAllShipments = async (req, res) => {
     try {
         const allShipmentsList = await Shipment.find(
-            { createdAt: { $gte: Date.now() - 5 * 60 * 60 * 1000 } }
+            // { createdAt: { $gte: Date.now() - 5 * 60 * 60 * 1000 } }
         )
         res.status(200).json(allShipmentsList)
     } catch (error) {
