@@ -18,16 +18,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
-//custom middleware example - logger
+//logger middleware
 app.use((req,res,next) => {
     console.log(`${req.method} ${req.path}`);
     next();
 })
 
-app.use('/register', require('./src/routes/api/register'));
 app.use('/auth', require('./src/routes/api/auth'));
 app.use('/refresh', require('./src/routes/api/refresh'));
-app.use('/logout', require('./src/routes/api/logout'));
 
 app.use('/geocoding', require('./src/routes/geocoding'));
 

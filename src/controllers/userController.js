@@ -1,9 +1,9 @@
 const User = require('../model/User');
 
-const findUserByUsername = async (req, res) => {
+const getUserByUsername = async (req, res) => {
     const foundUser = await User.findOne({ username: req.headers.username });
 
-    if (!foundUser) return res.status(204).json({ "message": "No User found :(" });
+    if (!foundUser) return res.status(204).json({ "message": "No User found" });
     res.json(foundUser);
 };
 
@@ -36,4 +36,4 @@ const getUserInfo = async (req, res) => {
     res.json(contactInfo);
 };
 
-module.exports = { findUserByUsername, editUser, getUserInfo }
+module.exports = { getUserByUsername, editUser, getUserInfo }
