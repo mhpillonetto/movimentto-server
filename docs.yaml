@@ -1,0 +1,394 @@
+openapi: 3.0.3
+info:
+  title: API Movementto
+  description: |-
+    Esta é a API do marketplace web de anúncio e busca de fretes por todo o território brasileiro
+    
+    Utilizando esta API é possivel:
+      - Registrar-se e logar na plataforma
+      - Editar seu perfil
+      - Anunciar Cargas
+      - Buscar Cargas
+      - Realizar check-ins
+      - Buscar motoristas disponíveis
+    
+  contact:
+    email: mhpillonetto@gmail.com
+  version: 1.0.0
+servers:
+  - url: https://mvt-api-server.onrender.com
+tags:
+  - name: Auth
+    description: Register, login, logout
+  - name: User
+    description: Fetch user, edit user
+  - name: Shipment
+    description: Create shipment, fetch all shipments
+  - name: Driver
+    description: Get Drivers
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Registro de novo usuario
+      operationId: register
+      requestBody:
+        description: Novo usuário
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        '201':
+          description: New user {username} created
+        '500':
+          description: Error
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: login
+      requestBody:
+        description: Login
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUser'
+        required: true
+      responses:
+        '200':
+          description: Access Token, Refresh Token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySW5mbyI6eyJyb2xlcyI6WzIwMDEsbnVsbCxudWxsXX0sImlhdCI6MTY4MTgzMDkxMywiZXhwIjoxNjgxODMyNzEzfQ.OT9BVe2LdRAiyIcA6CY5jHZtRdlWNjRYlLX618BOP6U'
+                  refreshToken:
+                    type: string
+                    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2ODE4MzA5MTMsImV4cCI6MTY4MTkxNzMxM30.eiH63cFGMPKtALAKT9MISO6LSDfP3PtoScXM1kN1zrI'
+                  
+        '401':
+          description: Error
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout
+      operationId: logout
+      security: 
+        - BearerAuth: [accessToken]
+      responses:
+        '204':
+          description: No content
+        '500':
+          description: Error
+  
+  /user:
+    get:
+      tags:
+        - User
+      summary: get user by username
+      operationId: getUser
+      security:
+        - BearerAuth: [accessToken]
+      parameters:
+        - name: username
+          in: query
+          description: username of desired user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Error
+  /user/edit:
+    post:
+      tags:
+        - User
+      summary: edit user profile
+      operationId: editUser
+      security:
+        - BearerAuth: [accessToken]
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/DetailedUser'
+      responses:
+        '201':
+          description: Profile edited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedUser'
+  
+  /shipment:
+    post:
+      tags:
+        - Shipment
+      summary: Cria uma nova carga
+      operationId: createShipment
+      security:
+        - BearerAuth: [accessToken]
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Shipment'
+      responses:
+        '201':
+          description: Carga postada
+        '400':
+          description: Bad request
+  /shipment/:
+    get:
+      tags:
+        - Shipment
+      summary: Fetch all shipments
+      operationId: getShipment
+      security:
+        - BearerAuth: [accessToken]
+      responses:
+        '200':
+          description: OK
+          content: 
+            application/json:
+              schema:
+               $ref: '#/components/schemas/Shipment'
+        '404':
+          description: Not Found 
+  
+  /driver:
+    get:
+      tags:
+        - Driver
+      summary: fetch all drivers
+      operationId: getAllDrivers
+      security:
+        - BearerAuth: [accessToken]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+  /driver/{username}:
+    get:
+      tags:
+        - Driver
+      summary: get driver by username
+      operationId: getDriverByUsername
+      security:
+        - BearerAuth: [accessToken]
+      parameters:
+        - name: username
+          in: path
+          description: username of desired user
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '500':
+          description: Error
+  
+  /checkin:
+    post:
+      tags:
+        - Checkin
+      summary: check in
+      operationId: checkIn
+      security:
+        - BearerAuth: [accessToken]
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckInUser'
+      responses:
+        '201':
+          description: Carga postada
+        '400':
+          description: Bad request
+  
+  /checkin/:
+    get: 
+      tags:
+        - Checkin
+      summary: get checked-in users    
+      operationId: getCheckInUsers
+      security:
+        - BearerAuth: [accessToken]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Error
+          
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "nome de usuario"
+        password:
+          type: string
+          example: "senha"
+        email:
+          type: string
+          example: "user@gmail.com"
+        userType:
+          type: string
+          example: "Motorista"
+        phoneNumber:
+          type: string
+          example: "(00)0000-0000"
+    LoginUser:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "nome de usuário"
+        password:
+          type: string
+          example: "senha"
+    DetailedUser:
+      type: object
+      properties:
+        username:
+          type: string
+          example: "nome de usuario"
+        password:
+          type: string
+          example: "senha"
+        email:
+          type: string
+          example: "user@gmail.com"
+        userType:
+          type: string
+          example: "Motorista"
+        phoneNumber:
+          type: string
+          example: "(00)0000-0000"
+        cnpj:
+          type: string
+          example: "000000000000"
+        cep:
+          type: string
+          example: "00.000-000"
+        website:
+          type: string
+          example: "www.example.com"
+    CheckInUser:
+      type: object
+      properties:
+        username:
+          type: string
+          example: 'driver'
+        lat:
+          type: number
+          example: -12.007
+        long:
+          type: number
+          example: -13.476
+        city:
+          type: string
+          example: 'Curitiba'
+        state:
+          type: string
+          example: 'PR'
+        status:
+          type: string
+          example: 'Parcialmente carregado'
+    Shipment:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "título da carga"
+        deliveryCity:
+          type: string
+          example: "Curitiba"
+        deliveryState:
+          type: string
+          example: "PR"
+        deliveryDate:
+          type: string
+          example: "26/02/2023"          
+        retrievalCity:
+          type: string
+          example: "Ponta Grossa"
+        retrievalState:
+          type: string
+          example: "PR"
+        retrievalDate:
+          type: string
+          example: "20/02/2023"          
+        ownerUsername:
+          type: string
+          example: "operator"          
+        ownerDisplayName:
+          type: string
+          example: "João da Silva"          
+        createdAt:
+          type: string
+          example: "18/02/2023"
+        price:
+          type: number
+          example: 5000.00
+        product:
+          type: string
+          example: "Paletes de madeira"          
+        productType:
+          type: string
+          example: "paletes"
+        requiredVehicle:
+          type: string
+          example: "Truck"
+        weight: 
+          type: number
+          example: 2000
+        tracking:
+          type: string
+          example: "Tracked"
+        flooringType:
+          type: string
+          example: "Madeira"
+        necessaryItems:
+          type: string
+          example: "Linhas de vida"
+        
+          
+          
+          
